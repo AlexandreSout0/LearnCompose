@@ -23,10 +23,10 @@ fun ScreenA(navController: NavHostController) {
         horizontalAlignment = Alignment.CenterHorizontally
     
     ) {
-        Text(text = "Screen A", fontSize = 64.sp)
+        Text(text = "Screen 0", fontSize = 64.sp)
         Spacer(modifier = Modifier.height(65.dp))
-        Button (onClick = {  navController.navigate("B") }){
-        Text(text = "Go to Screen B", fontSize = 40.sp)
+        Button (onClick = {  navController.navigate("0") }){
+        Text(text = "Go to Screen 1", fontSize = 40.sp)
         }
     }
     

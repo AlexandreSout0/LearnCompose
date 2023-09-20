@@ -8,17 +8,18 @@ import androidx.navigation.compose.rememberNavController
 @Composable
 fun Nav(){
     val navController = rememberNavController()
-    NavHost(navController = navController, startDestination = "A"){
+    NavHost(navController = navController, startDestination = "0"){
         
-        composable( route = "A"){
+        composable( route = "0"){
             ScreenA(navController)
         }
-        composable( route = "B"){
+        composable( route = "1"){
             ScreenB(navController)
         }
-        composable( route = "C"){
+        composable( route = "2"){
             ScreenC(navController)
         }
+        
     }
 
 
