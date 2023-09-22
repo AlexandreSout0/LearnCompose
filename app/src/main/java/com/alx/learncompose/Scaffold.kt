@@ -34,8 +34,12 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -92,6 +96,7 @@ fun MyTopAppBar(modifier: Modifier = Modifier) {
 
 @Composable
 fun MyBottomNavigationBar(modifier: Modifier = Modifier) {
+    var index by remember{ mutableStateOf(0) }
     NavigationBar(
         modifier
             .padding(10.dp)
@@ -99,8 +104,8 @@ fun MyBottomNavigationBar(modifier: Modifier = Modifier) {
             containerColor = Color.Red,
     ) {
         NavigationBarItem(
-            selected = false,
-            onClick = { },
+            selected = index == 0,
+            onClick = { index = 0},
             icon = { Icon(imageVector = Icons.Default.Home, contentDescription = "Home") },
             label = { Text(text = "Home") },
             colors = NavigationBarItemDefaults.colors(
@@ -111,8 +116,8 @@ fun MyBottomNavigationBar(modifier: Modifier = Modifier) {
                 indicatorColor = Color.White)
             )
         NavigationBarItem(
-            selected = false,
-            onClick = { },
+            selected = index == 1,
+            onClick = { index = 1 },
             icon = { Icon(imageVector = Icons.Default.Favorite, contentDescription = "Fav") },
             label = { Text(text = "Fav") },
             colors = NavigationBarItemDefaults.colors(
@@ -123,8 +128,8 @@ fun MyBottomNavigationBar(modifier: Modifier = Modifier) {
                 indicatorColor = Color.White)
         )
         NavigationBarItem(
-            selected = false,
-            onClick = { },
+            selected = index == 2,
+            onClick = { index = 2},
             icon = { Icon(imageVector = Icons.Default.Person, contentDescription = "Person") },
             label = { Text(text = "Person") },
             colors = NavigationBarItemDefaults.colors(
