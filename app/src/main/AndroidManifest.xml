@@ -13,6 +13,16 @@
         android:theme="@style/Theme.LearnCompose"
         tools:targetApi="31">
         <activity
+            android:name=".Scaffold"
+            android:exported="false"
+            android:label="@string/title_activity_scaffold"
+            android:theme="@style/Theme.LearnCompose" />
+        <activity
+            android:name=".RecyclerView"
+            android:exported="false"
+            android:label="@string/title_activity_recycler_view"
+            android:theme="@style/Theme.LearnCompose" />
+        <activity
             android:name=".HomeActivity"
             android:exported="false"
             android:label="@string/title_activity_home"

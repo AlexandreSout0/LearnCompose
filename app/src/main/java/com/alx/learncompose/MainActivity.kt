@@ -36,6 +36,7 @@ import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
@@ -70,160 +71,29 @@ import timber.log.Timber
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-    
+        Timber.plant(Timber.DebugTree())
         setContent {
-            Timber.plant(Timber.DebugTree())
-    
-            LearnComposeTheme {
-                HomeScreen()
+            Surface{
+                Scaffold()
+                //RecycleView()
+                //SuperHeroView()
+                //SuperHeroGridView()
             }
+            }
+            
         }
         
     }
-    
-    
-    @OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
-    @Composable
-    fun HomeScreen(
-        modifier: Modifier = Modifier,
-        onPlantClick: (Plant) -> Unit = {},
-        viewModel: PlantListViewModel = hiltViewModel()
-    ) {
-        val pagerState = rememberPagerState()
-        val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
-        
-        Scaffold(
-            modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
-            topBar = {
-                HomeTopAppBar(
-                    pagerState = pagerState,
-                    onFilterClick = { viewModel.updateData() },
-                    scrollBehavior = scrollBehavior
-                )
-            }
-        ) {
-            HomePagerScreen(
-                onPlantClick = onPlantClick,
-                pagerState = pagerState,
-                modifier = Modifier.padding(it)
-            )
-        }
-    }
-    
-    @OptIn(ExperimentalFoundationApi::class)
-    @Composable
-    fun HomePagerScreen(
-        onPlantClick: (Plant) -> Unit,
-        pagerState: PagerState,
-        modifier: Modifier = Modifier,
-        pages: Array<SunflowerPage> = SunflowerPage.values()
-    ) {
-        // Use Modifier.nestedScroll + rememberNestedScrollInteropConnection() here so that this
-        // composable participates in the nested scroll hierarchy so that HomeScreen can be used in
-        // use cases like a collapsing toolbar
-        Column(modifier) {
-            val coroutineScope = rememberCoroutineScope()
-            
-            // Tab Row
-            TabRow(
-                selectedTabIndex = pagerState.currentPage
-            ) {
-                pages.forEachIndexed { index, page ->
-                    val title = stringResource(id = page.titleResId)
-                    Tab(
-                        selected = pagerState.currentPage == index,
-                        onClick = { coroutineScope.launch { pagerState.animateScrollToPage(index) } },
-                        text = { Text(text = title) },
-                        icon = {
-                            Icon(
-                                painter = painterResource(id = page.drawableResId),
-                                contentDescription = title
-                            )
-                        },
-                        unselectedContentColor = MaterialTheme.colorScheme.secondary
-                    )
-                }
-            }
-            
-            // Pages
-            HorizontalPager(
-                modifier = Modifier.background(MaterialTheme.colorScheme.background),
-                pageCount = pages.size,
-                state = pagerState,
-                verticalAlignment = Alignment.Top
-            ) { index ->
-                when (pages[index]) {
-                    SunflowerPage.MY_GARDEN -> {
-                        GardenScreen(
-                            Modifier.fillMaxSize(),
-                            onAddPlantClick = {
-                                coroutineScope.launch {
-                                    pagerState.scrollToPage(SunflowerPage.PLANT_LIST.ordinal)
-                                }
-                            },
-                            onPlantClick = {
-                                onPlantClick(it.plant)
-                            })
-                    }
-                    
-                    SunflowerPage.PLANT_LIST -> {
-                        PlantListScreen(
-                            onPlantClick = onPlantClick,
-                            modifier = Modifier.fillMaxSize(),
-                        )
-                    }
-                }
-            }
-        }
-    }
-    
-    @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
-    @Composable
-    private fun HomeTopAppBar(
-        pagerState: PagerState,
-        onFilterClick: () -> Unit,
-        scrollBehavior: TopAppBarScrollBehavior,
-        modifier: Modifier = Modifier
-    ) {
-        TopAppBar(
-            title = {
-                Row(
-                    Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.Center,
-                ) {
-                    Text(
-                        text = stringResource(id = R.string.app_name),
-                        style = MaterialTheme.typography.displaySmall
-                    )
-                }
-            },
-            modifier = modifier.statusBarsPadding(),
-            actions = {
-                if (pagerState.currentPage == SunflowerPage.PLANT_LIST.ordinal) {
-                    IconButton(onClick = onFilterClick) {
-                        Icon(
-                            painter = painterResource(id = R.drawable.ic_filter_list_24dp),
-                            contentDescription = stringResource(
-                                id = R.string.menu_filter_by_grow_zone
-                            )
-                        )
-                    }
-                }
-            },
-            scrollBehavior = scrollBehavior
-        )
-    }
+
+ 
+
+
     
     @OptIn(ExperimentalFoundationApi::class)
     @Preview
     @Composable
     private fun HomeScreenPreview() {
-        SunflowerTheme {
-            HomePagerScreen(
-                onPlantClick = {},
-                pagerState = PagerState(),
-            )
-        }
+    
     }
 
 
