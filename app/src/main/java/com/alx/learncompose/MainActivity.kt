@@ -22,30 +22,31 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         Timber.plant(Timber.DebugTree())
         setContent {
+            
             myDrawer()
             Surface{
-                val navigationController = rememberNavController()
-                NavHost(navController = navigationController, startDestination = Routes.Tela1.route ){
-                    composable(Routes.Tela1.route){
-                        Screen1(navigationController)
-                    }
-                    composable(Routes.Tela2.route){
-                        Screen2(navigationController)
-                    }
-                    composable(Routes.Tela3.route){
-                        Screen3(navigationController)
-                    }
-                    composable(Routes.Tela4.route, arguments = listOf(navArgument("age") { type = NavType.IntType})){
-                        Screen4(navController = navigationController, age = it.arguments?.getInt("age") ?: 0 )
-                    }
-                    composable(Routes.Tela5.route, arguments = listOf(navArgument("name") {
-                        defaultValue = "pagina"
-                    }) ){
-                        Screen5(navController = navigationController, name = it.arguments?.getString("name") )
-                    }
-                    
-                }
-                //Scaffold()
+               val navigationController = rememberNavController()
+//                NavHost(navController = navigationController, startDestination = Routes.Tela1.route ){
+//                    composable(Routes.Tela1.route){
+//                        Screen1(navigationController)
+//                    }
+//                    composable(Routes.Tela2.route){
+//                        Screen2(navigationController)
+//                    }
+//                    composable(Routes.Tela3.route){
+//                        Screen3(navigationController)
+//                    }
+//                    composable(Routes.Tela4.route, arguments = listOf(navArgument("age") { type = NavType.IntType})){
+//                        Screen4(navController = navigationController, age = it.arguments?.getInt("age") ?: 0 )
+//                    }
+//                    composable(Routes.Tela5.route, arguments = listOf(navArgument("name") {
+//                        defaultValue = "pagina"
+//                    }) ){
+//                        Screen5(navController = navigationController, name = it.arguments?.getString("name") )
+//                    }
+//
+//                }
+                Scaffold()
                 //RecycleView()
                 //SuperHeroView()
                 //SuperHeroGridView()

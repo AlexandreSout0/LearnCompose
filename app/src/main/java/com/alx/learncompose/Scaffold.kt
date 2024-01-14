@@ -1,7 +1,10 @@
 package com.alx.learncompose
 
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -54,11 +57,34 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Scaffold() {
-    Scaffold(topBar = { MyTopAppBar() }, bottomBar = { MyBottomNavigationBar()}, floatingActionButton = {MyFloatingActionBotton()}, floatingActionButtonPosition = FabPosition.Center) {
-    
+    Scaffold(
+        topBar = { MyTopAppBar() },
+        bottomBar = { MyBottomNavigationBar() },
+        floatingActionButton = { MyFloatingActionBotton() },
+        floatingActionButtonPosition = FabPosition.Center,
+        
+    ) {
+        Screen1()
     }
     
 }
+
+
+@Composable
+fun Screen1() {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.Blue)
+    ) {
+        Text(
+            text = "Tela 1",
+            modifier = Modifier
+                .align(Alignment.Center)
+        )
+    }
+}
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -99,16 +125,16 @@ fun MyTopAppBar(modifier: Modifier = Modifier) {
 
 @Composable
 fun MyBottomNavigationBar(modifier: Modifier = Modifier) {
-    var index by remember{ mutableStateOf(0) }
+    var index by remember { mutableStateOf(0) }
     NavigationBar(
         modifier
             .padding(10.dp)
             .clip(RoundedCornerShape(20.dp)),
-            containerColor = Color.Red,
+        containerColor = Color.Red,
     ) {
         NavigationBarItem(
             selected = index == 0,
-            onClick = { index = 0},
+            onClick = { index = 0 },
             icon = { Icon(imageVector = Icons.Default.Home, contentDescription = "Home") },
             label = { Text(text = "Home") },
             colors = NavigationBarItemDefaults.colors(
@@ -116,8 +142,9 @@ fun MyBottomNavigationBar(modifier: Modifier = Modifier) {
                 unselectedIconColor = Color.White,
                 selectedTextColor = Color.White,
                 unselectedTextColor = Color.White,
-                indicatorColor = Color.White)
+                indicatorColor = Color.White
             )
+        )
         NavigationBarItem(
             selected = index == 1,
             onClick = { index = 1 },
@@ -128,11 +155,12 @@ fun MyBottomNavigationBar(modifier: Modifier = Modifier) {
                 unselectedIconColor = Color.White,
                 selectedTextColor = Color.White,
                 unselectedTextColor = Color.White,
-                indicatorColor = Color.White)
+                indicatorColor = Color.White
+            )
         )
         NavigationBarItem(
             selected = index == 2,
-            onClick = { index = 2},
+            onClick = { index = 2 },
             icon = { Icon(imageVector = Icons.Default.Person, contentDescription = "Person") },
             label = { Text(text = "Person") },
             colors = NavigationBarItemDefaults.colors(
@@ -140,16 +168,19 @@ fun MyBottomNavigationBar(modifier: Modifier = Modifier) {
                 unselectedIconColor = Color.White,
                 selectedTextColor = Color.White,
                 unselectedTextColor = Color.White,
-                indicatorColor = Color.White)
+                indicatorColor = Color.White
+            )
         )
     }
     
 }
 
 @Composable
-fun MyFloatingActionBotton(){
-    FloatingActionButton( onClick = { },containerColor = Color.Red,
-        shape = RoundedCornerShape(topStart = 30.dp, topEnd = 30.dp, bottomStart = 30.dp)){
+fun MyFloatingActionBotton() {
+    FloatingActionButton(
+        onClick = { }, containerColor = Color.Red,
+        shape = RoundedCornerShape(topStart = 30.dp, topEnd = 30.dp, bottomStart = 30.dp)
+    ) {
         Icon(imageVector = Icons.Filled.Add, contentDescription = "Floating Action Button")
     }
     
@@ -157,7 +188,7 @@ fun MyFloatingActionBotton(){
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun myDrawer (
+fun myDrawer(
     closeDrawer: () -> Unit = {}
 ) {
     ModalDrawerSheet(modifier = Modifier) {
